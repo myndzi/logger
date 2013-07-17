@@ -1,0 +1,12 @@
+{
+  "name": "logger",
+  "version": "0.1.0",
+  "description": "A simple logger for node and phantom",
+  "main": "logger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Kris Reeves",
+  "license": "MIT"
+}
