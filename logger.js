@@ -13,6 +13,11 @@ module.exports =
 	};
 	function Logger(name, level) {
 		this.name = name;
+		
+		level = process.env.DEBUG_ALL ||
+				process.env['DEBUG_'+name.toUpperCase()] ||
+				level;
+
 		this.level = levels[level] || Logger.defaultLevel;
 		this.trace = log.bind(this, 'trace', this.name);
 		this.silly = log.bind(this, 'silly', this.name);
