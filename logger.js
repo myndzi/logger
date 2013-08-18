@@ -8,11 +8,18 @@ module.exports =
 		'error': 0,
 		'warn': 1,
 		'info': 2,
-		'silly': 3
+		'silly': 3,
+		'trace': 99
 	};
 	function Logger(name, level) {
 		this.name = name;
+		
+		level = process.env.DEBUG_ALL ||
+				process.env['DEBUG_'+name.toUpperCase()] ||
+				level;
+
 		this.level = levels[level] || Logger.defaultLevel;
+		this.trace = log.bind(this, 'trace', this.name);
 		this.silly = log.bind(this, 'silly', this.name);
 		this.info = log.bind(this, 'info', this.name);
 		this.warn = log.bind(this, 'warn', this.name);
@@ -27,6 +34,7 @@ module.exports =
 		cyan  = '\x1B[36m',
 		yellow= '\x1B[33m',
 		RED   = '\x1B[1;31m',
+		WHITE = '\x1B[1;37m',
 		reset = '\x1B[0m';
 
 	var inspect = (function () {
@@ -78,6 +86,9 @@ module.exports =
 		msg = msg.join(newLine);
 
 		switch (type) {
+			case 'trace':
+				console.log(GREEN + out + reset + WHITE + '[s] ' + name + ': ' + reset + msg);
+				break;
 			case 'silly':
 				console.log(GREEN + out + reset + green + '[s] ' + name + ': ' + reset + msg);
 				break;
