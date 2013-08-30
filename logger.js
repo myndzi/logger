@@ -24,6 +24,7 @@ module.exports =
 		this.info = log.bind(this, 'info', this.name);
 		this.warn = log.bind(this, 'warn', this.name);
 		this.error = log.bind(this, 'error', this.name);
+		this.newline = false;
 	}
 
 	var lastday = null,
@@ -57,6 +58,12 @@ module.exports =
 				('0'+now.getHours()).slice(-2) + ':' +
 				('0'+now.getMinutes()).slice(-2) +  '.' +
 				('0'+now.getSeconds()).slice(-2);
+		
+		if (this.newline) {
+			out = '\n';
+			this.newline = false;
+		}
+		
 		if (day != lastday) {
 			lastday = day;
 			console.log(GREEN + '---' + day + '---' + reset);
