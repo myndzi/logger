@@ -18,7 +18,9 @@ module.exports =
 				process.env['DEBUG_'+name.toUpperCase()] ||
 				level;
 
-		this.level = levels[level] || Logger.defaultLevel;
+		this.level = Logger.defaultLevel;
+		if (typeof level === 'number') this.level = level;
+		if (typeof level === 'string') this.level = levels[level];
 		this.trace = log.bind(this, 'trace', this.name);
 		this.silly = log.bind(this, 'silly', this.name);
 		this.info = log.bind(this, 'info', this.name);
