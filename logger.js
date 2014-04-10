@@ -81,9 +81,19 @@ module.exports =
 		msg.forEach(function (val, idx, arr) {
 			if (val instanceof Error) {
 				arr[idx].logged = true;
-                if (!val.stack) {
-                    var _e = new Error();
-                    val.stack =  _e.stack;
+                
+                if (!val.stack && val._object && val.details && val.message) {
+                    // FU Joi. Return a proper Error object!
+                    var e = new Error(val.message);
+                    
+                    // removing self from stack trace
+                    var stack = e.stack.split('\n');
+                    stack.splice(1, 3)
+                    e.stack = stack.join('\n');
+                    
+                    e.details = val.details;
+                    e._object = val._object;
+                    val = e;
                 }
 				val = val.stack.toString();
 			} else if (typeof val !== 'string') {
