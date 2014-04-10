@@ -81,6 +81,10 @@ module.exports =
 		msg.forEach(function (val, idx, arr) {
 			if (val instanceof Error) {
 				arr[idx].logged = true;
+                if (!val.stack) {
+                    var _e = new Error();
+                    val.stack =  _e.stack;
+                }
 				val = val.stack.toString();
 			} else if (typeof val !== 'string') {
 				val = inspect(val);
