@@ -13,14 +13,20 @@ module.exports =
 	};
 	function Logger(name, level) {
 		this.name = name;
-		
-		level = process.env.DEBUG_ALL ||
-				process.env['DEBUG_'+name.toUpperCase()] ||
-				level;
+
+                var envName = 'DEBUG_' + name.toUpperCase().replace(/[^A-Z]/g, '');
+
+                if (process.env[envName] !== void 0) { level = process.env[envName]; }
+                else if (process.env.DEBUG_ALL !== void 0) { level = process.env.DEBUG_ALL; }
 
 		this.level = Logger.defaultLevel;
-		if (typeof level === 'number') this.level = level;
-		if (typeof level === 'string') this.level = levels[level];
+
+                var num = parseInt(level, 10);
+		if (!isNaN(num)) { this.level = num; }
+		else if (levels.hasOwnProperty(level)) {
+                    this.level = levels[level];
+                }
+
 		this.trace = log.bind(this, 'trace', this.name);
 		this.silly = log.bind(this, 'silly', this.name);
 		this.info = log.bind(this, 'info', this.name);
