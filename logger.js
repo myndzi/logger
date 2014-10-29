@@ -103,7 +103,7 @@ module.exports =
 
 		switch (type) {
 			case 'trace':
-				console.log(GREEN + out + reset + WHITE + '[s] ' + name + ': ' + reset + msg);
+				console.log(GREEN + out + reset + WHITE + '[t] ' + name + ': ' + reset + msg);
 				break;
 			case 'silly':
 				console.log(GREEN + out + reset + green + '[s] ' + name + ': ' + reset + msg);
