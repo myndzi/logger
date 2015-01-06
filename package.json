@@ -1,6 +1,6 @@
 {
-  "name": "logger",
-  "version": "0.1.0",
+  "name": "@eros/logger",
+  "version": "0.1.1",
   "description": "A simple logger for node and phantom",
   "main": "logger.js",
   "scripts": {
