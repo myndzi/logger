@@ -41,7 +41,13 @@ module.exports =
 	var lastday = null,
 		lasttime = null;
 
-    var GREEN = green = cyan = yellow = RED = WHITE = reset = '';
+    var GREEN  = '',
+        green  = '',
+        cyan   = '',
+        yellow = '',
+        RED    = '',
+        WHITE  = '',
+        reset  = '';
     
     if (useColors) {
         GREEN = '\x1B[1;32m';
