@@ -2,6 +2,9 @@ module.exports =
 (function () {
 	"use strict";
 
+    var tty = require('tty'),
+        useColors = tty.isatty(1) && tty.isatty(2);
+    
 	Logger.defaultLevel = 1;
 
 	var levels = {
@@ -38,13 +41,17 @@ module.exports =
 	var lastday = null,
 		lasttime = null;
 
-	var GREEN = '\x1B[1;32m',
-		green = '\x1B[32m',
-		cyan  = '\x1B[36m',
-		yellow= '\x1B[33m',
-		RED   = '\x1B[1;31m',
-		WHITE = '\x1B[1;37m',
+    var GREEN = green = cyan = yellow = RED = WHITE = reset = '';
+    
+    if (useColors) {
+        GREEN = '\x1B[1;32m';
+		green = '\x1B[32m';
+		cyan  = '\x1B[36m';
+		yellow= '\x1B[33m';
+		RED   = '\x1B[1;31m';
+		WHITE = '\x1B[1;37m';
 		reset = '\x1B[0m';
+    }
 
 	var inspect = (function () {
 		if (typeof phantom !== 'undefined') return function (obj) { return obj; }
